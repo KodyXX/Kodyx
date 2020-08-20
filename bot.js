@@ -876,4 +876,76 @@ client.on("guildMemberAdd", async (member) => {
       member.addRole(role)
 
 })
+
+////////////////KÜFÜR/////////////////
+
+
+client.on("message", async msg => {
+  if (msg.author.bot) return;
+  if (msg.channel.type === "dm") return;
+
+  let i = await db.fetch(`küfürFiltre_${msg.guild.id}`);
+  if (i == "acik") {
+    const küfür = [
+      "amcık",
+      "yarrak",
+      "orospu",
+      "piç",
+      "sikerim",
+      "sikik",
+      "amına",
+      "pezevenk",
+      "yavşak",
+      "ananı",
+      "anandır",
+      "orospu",
+      "evladı",
+      "göt",
+      "pipi",
+      "sokuk",
+      "yarak",
+      "bacını",
+      "karını",
+      "amk",
+      "aq",
+      "mk",
+      "anaskm"
+    ];
+    if (küfür.some(word => msg.content.toLowerCase().includes(word))) {
+      try {
+        if (!msg.member.hasPermission("MANAGE_WEBHOOKS")) {
+          msg.delete();
+          let embed = new Discord.RichEmbed()
+            .setColor(0xffa300)
+            .setFooter("RedDeveloper Küfür Sistemi", client.user.avatarURL)
+            .setAuthor(
+              msg.guild.owner.user.username,
+              msg.guild.owner.user.avatarURL
+            )
+            .setDescription(
+              "RedDeveloper, " +
+                `***${msg.guild.name}***` +
+                " adlı sunucunuzda küfür yakaladım."
+            )
+            .addField(
+              "Küfür Eden Kişi",
+              "Kullanıcı: " + msg.author.tag + "\nID: " + msg.author.id,
+              true
+            )
+            .addField("Engellenen mesaj", msg.content, true)
+            .setTimestamp();
+          msg.guild.owner.user.send(embed);
+          return msg.channel
+            .send(
+              `${msg.author}, Küfür Etmek Yasak! Senin Mesajını Özelden Kurucumuza Gönderdim.`
+            )
+            .then(msg => msg.delete(25000));
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+  if (!i) return;
+});
   
