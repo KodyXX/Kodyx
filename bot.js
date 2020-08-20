@@ -948,4 +948,17 @@ client.on("message", async msg => {
   }
   if (!i) return;
 });
+
+
+///////////////SADECE RESİM KANALI////////////////////////
+
+client.on("message", m => {
+  if (m.channel.id !== "746118203150827531") { //buraya o kanalın ID'si yazılacak.
+    return;
+  }
+  if (m.author.id === m.guild.ownerID) return;
+  if (m.attachments.size < 1) {
+    m.delete();
+  }
+});
   
