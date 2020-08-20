@@ -1,21 +1,40 @@
 const Discord = require("discord.js");
 exports.run = function(client, message, args) {
-  if (!message.member.hasPermission("MANAGE_MESSAGES"))
-    return message.reply(
-      "**Bu Komutu Kullanmak İçin __Mesajları Yönet__ Yetkisinie Sahip Olmalısın**"
-    );
-  if (!args[0])
-    return message.channel.send(
-      "**🛑 Lütfen Silinecek Mesaj Miktarını Yazın!**"
-    );
+  if (!message.member.hasPermission("MANAGE_MESSAGES")) {
+    const embed = new Discord.RichEmbed()
+      .setColor("BLUE")
+      .setDescription(`Ne yazıkki bu komutu kullanmaya yetkiniz yok!`)
+      .setFooter(client.user.username, client.user.avatarURL);
+
+    message.channel.send(embed);
+    return;
+  }
+  if (!args[0]) {
+    const embed = new Discord.RichEmbed()
+      .setColor("BLUE")
+      .setDescription(`Lütfen silinecek mesaj sayısını belirtiniz.`)
+      .setFooter(client.user.username, client.user.avatarURL);
+
+    message.channel.send(embed);
+    return;
+  }
+  if (args[0] > 100) {
+    const embed = new Discord.RichEmbed()
+      .setColor("BLUE")
+      .setDescription(`Ne yazık ki 100'den fazla mesaj silemem.`)
+      .setFooter(client.user.username, client.user.avatarURL);
+
+    message.channel.send(embed);
+    return;
+  }
   message.channel.bulkDelete(args[0]).then(() => {
-    message.channel
-      .send(
-        ` ${
-          args[0]
-        } **Adet Mesaj Başarıyla Temizlendi!** `
-      )
-      .then(msg => msg.delete(5000));
+    const embed = new Discord.RichEmbed()
+      .setColor("BLUE")
+      .addField(`Temizleyen Yetkili`, `<@${message.author.id}>`)
+      .addField(`Silinen Mesaj Sayısı`, args[0])
+      .setFooter(client.user.username, client.user.avatarURL);
+
+    message.channel.send(embed).then(msg => msg.delete(5000));
   });
 };
 
@@ -23,11 +42,11 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ["sil"],
-  permLevel: 2
+  permLevel: 0
 };
 
 exports.help = {
   name: "temizle",
-  description: "Belirlenen miktarda mesajı siler.",
-  usage: "!temizle <miktar>"
+  description: "temizle",
+  usage: "temizle"
 };
