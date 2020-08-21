@@ -542,36 +542,8 @@ client.on("guildMemberAdd", member => {
   const embed = new Discord.RichEmbed()
     .setColor("RANDOM")
     .setTitle("SUNUCUMUZA HOŞGELDİN")
-    .setDescription("Kodyx Discord Sunucusu");
+    .setDescription("KodyX Discord Sunucusu");
   member.send(embed);
-});
-
-//Yazılar
-
-client.on("message", msg => {
-  if (msg.content.toLowerCase() === "!pro") {
-    msg.reply(
-      "https://cache.gametracker.com/server_info/185.28.63.23:27015/b_560_95_1.png"
-    );
-  }
-});
-
-client.on("message", msg => {
-  if (msg.content.toLowerCase() === "!ip") {
-    msg.reply("185.28.63.23 Her Zaman Açık Beklerizz :100:");
-  }
-});
-
-client.on("message", msg => {
-  if (msg.content.toLowerCase() === "!steamgrup") {
-    msg.reply("https://steamcommunity.com/groups/reddawngamingpropub");
-  }
-});
-
-client.on("message", msg => {
-  if (msg.content.toLowerCase() === "!insta") {
-    msg.reply("https://www.instagram.com/reddawnngaming/?hl=tr");
-  }
 });
 
 
@@ -815,31 +787,6 @@ client.on("guildMemberAdd", async member => {
     return canvaskanal.send(`? Bu bir bot, ${member.user.tag}`);
 });
 
-/////////////////////////////// GOLD ÜYE //////////////////////////////
-
-client.on("message", async msg => {
-const request = require('node-superfetch');
-const db = require('quick.db');
-const ms = require('parse-ms')
-let timeout = 600000
-let dakdest = await db.fetch(`goldzzz_${msg.author.id}`);
-let i = db.fetch(`gold_${msg.author.id}`)
-          if (i == 'gold') {
-    if (dakdest !== null && timeout - (Date.now() - dakdest) > 0) {
-        let time = ms(timeout - (Date.now() - dakdest));
-    } else {
-  if(msg.author.bot) return;   
-  if (msg.content.length > 1) {
-db.set(`goldzzz_${msg.author.id}`, Date.now());
-   msg.channel.send('**Bir Gold Üye Belirdi!!**')
-  }
-};
-          }
-   else if (i == undefined) {           
-          }
-          if (!i) return;
-        
-});
 
 
 ////////////////KÜFÜR/////////////////
