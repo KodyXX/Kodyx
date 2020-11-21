@@ -496,46 +496,6 @@ function play(guild, song) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-//Sunucu Üye Sayısı
-
-client.on("warn", e => {
-  console.log(chalk.bgYellow(e.replace(regToken, "that was redacted")));
-});
-
-client.on("error", e => {
-  console.log(chalk.bgRed(e.replace(regToken, "that was redacted")));
-});
-
-client.login(ayarlar.token);
-
-client.on("message", msg => {
-  if (msg.content.toLowerCase() === "<@394427304048197632>") {
-    const id = "394427304048197632";
-    const an = msg.guild.member(id);
-    an.send(
-      `${msg.author}(${msg.author.username},${msg.author.id}) kişisi **${msg.guild}**(${msg.guild.id}) sunucusunda seni etiketledi.`
-    );
-  }
-});
-client.on("ready", async msg => {
-  var gecikme = setInterval(function() {
-    client.channels
-      .get("432170942123212814")
-      .setTopic(
-        "Sunucumuzda " +
-          client.guilds
-            .get("432170942123212812")
-            .members.filter(mb => !mb.user.bot).size +
-          " Kişiyiz ve " +
-          client.guilds
-            .get("432170942123212812")
-            .members.filter(m => m.presence.status != "offline" && !m.user.bot)
-            .size +
-          " Aktif Var"
-      );
-  }, 30 * 1000);
-});
 //hoşgeldin
 
 client.on("guildMemberAdd", member => {
