@@ -1,6 +1,12 @@
 const Discord = require('discord.js');
 
-exports.run = function(client, message, args) {
+exports.run = (client, message, args) => {
+  let mesaj = args.slice(0).join(' ');
+if (mesaj.length < 1) return message.reply('Yazmam için herhangi bir şey yazmalısın.');
+  message.delete();
+  message.channel.send(mesaj);
+  
+  
   if (!message.member.hasPermission("MANAGE_MESSAGES")) {
     const embed = new Discord.RichEmbed()
       .setColor("BLUE")
@@ -8,14 +14,6 @@ exports.run = function(client, message, args) {
       .setFooter(client.user.username, client.user.avatarURL);
 
     message.channel.send(embed);
-    return;
-  }
-  
-  exports.run = (client, message, args) => {
-  let mesaj = args.slice(0).join(' ');
-if (mesaj.length < 1) return message.reply('Yazmam için herhangi bir şey yazmalısın.');
-  message.delete();
-  message.channel.send(mesaj);
 };
 
 exports.conf = {
