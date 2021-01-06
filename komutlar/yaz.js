@@ -5,15 +5,6 @@ exports.run = (client, message, args) => {
 if (mesaj.length < 1) return message.reply('Yazmam için herhangi bir şey yazmalısın.');
   message.delete();
   message.channel.send(mesaj);
-  
-  
-  if (!message.member.hasPermission("MANAGE_MESSAGES")) {
-    const embed = new Discord.RichEmbed()
-      .setColor("BLUE")
-      .setDescription(`Ne yazıkki bu komutu kullanmaya yetkiniz yok!`)
-      .setFooter(client.user.username, client.user.avatarURL);
-
-    message.channel.send(embed);
 };
 
 exports.conf = {
