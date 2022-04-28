@@ -749,77 +749,7 @@ client.on("guildMemberAdd", async member => {
 
 
 
-////////////////KÜFÜR/////////////////
 
-
-client.on("message", async msg => {
-  if (msg.author.bot) return;
-  if (msg.channel.type === "dm") return;
-
-  let i = await db.fetch(`küfürFiltre_${msg.guild.id}`);
-  if (i == "acik") {
-    const küfür = [
-      "amcık",
-      "yarrak",
-      "orospu",
-      "piç",
-      "sikerim",
-      "sikik",
-      "amına",
-      "pezevenk",
-      "yavşak",
-      "ananı",
-      "anandır",
-      "orospu",
-      "evladı",
-      "göt",
-      "pipi",
-      "sokuk",
-      "yarak",
-      "bacını",
-      "karını",
-      "amk",
-      "aq",
-      "mk",
-      "anaskm"
-    ];
-    if (küfür.some(word => msg.content.toLowerCase().includes(word))) {
-      try {
-        if (!msg.member.hasPermission("MANAGE_WEBHOOKS")) {
-          msg.delete();
-          let embed = new Discord.RichEmbed()
-            .setColor(0xffa300)
-            .setFooter("RedDeveloper Küfür Sistemi", client.user.avatarURL)
-            .setAuthor(
-              msg.guild.owner.user.username,
-              msg.guild.owner.user.avatarURL
-            )
-            .setDescription(
-              "RedDeveloper, " +
-                `***${msg.guild.name}***` +
-                " adlı sunucunuzda küfür yakaladım."
-            )
-            .addField(
-              "Küfür Eden Kişi",
-              "Kullanıcı: " + msg.author.tag + "\nID: " + msg.author.id,
-              true
-            )
-            .addField("Engellenen mesaj", msg.content, true)
-            .setTimestamp();
-          msg.guild.owner.user.send(embed);
-          return msg.channel
-            .send(
-              `${msg.author}, Küfür Etmek Yasak! Senin Mesajını Özelden Kurucumuza Gönderdim.`
-            )
-            .then(msg => msg.delete(25000));
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  }
-  if (!i) return;
-});
 
 
 ///////////////SADECE RESİM KANALI////////////////////////
@@ -833,4 +763,25 @@ client.on("message", m => {
     m.delete();
   }
 });
-  
+
+///////////////////// DOSS SALDIRI
+
+client.on('message', msg => {
+
+if(client.ping > 550) {
+
+            let emran = ['singapore', 'eu-central', 'india', 'us-central', 'london',
+            'eu-west', 'amsterdam', 'brazil', 'us-west', 'hongkong', 
+            'us-south', 'southafrica', 'us-east', 'sydney', 'frankfurt',
+            'russia']
+
+           let kodyx = emran[Math.floor(Math.random() * emran.length)]
+           let kanal = msg.guild.channels.find(c => c.name === "saldırı-koruma")
+
+           kanal.send(`Sunucunun Pingi Yükseldiğinden Dolayı Bölge Değiştirildi!\n🔸 Yeni Bölge: ${kodyx} `+ client.ping)
+           msg.guild.setRegion(kodyx)
+           .then(g => console.log("🌍 Bölge:" + g.region))
+           .then(g => msg.channel.send("✅ Bölge **"+ g.region  + " Olarak Değiştirildi! 🏡"))
+           .then(msg.reply('✅ Bölge Değiştirildi! ')) 
+           .catch(console.error);
+}});
